@@ -1,8 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors({}));
+// app.options("*", cors());
 
 // Cache the Mongo connection across serverless invocations.
 // On Vercel each function instance may be reused; without this every cold
