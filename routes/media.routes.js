@@ -21,7 +21,8 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     const media = await Ramdevpir_wallpaper.create({
       url: req.file.path,
       public_id: req.file.filename,
-      type: isVideo ? "video" : "image"
+      type: isVideo ? "video" : "image",
+      isPremium: req.body.isPremium
     });
 
     res.json({
@@ -63,7 +64,8 @@ router.get("/media", async (req, res) => {
     const response = media.map(item => ({
       id: item._id,
       url: item.url,
-      type: item.type
+      type: item.type,
+      isPremium: item.isPremium
     }));
 
     res.status(200).json({
