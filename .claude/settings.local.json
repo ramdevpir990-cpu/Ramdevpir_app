@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:vercel.com)",
+      "Bash(git rm *)",
+      "Bash(grep -E \"^\\(node_modules|\\\\.env$\\)\")",
+      "Bash(grep -v \"^.D \\\\.env$\")",
+      "Bash(node -c server.js)"
+    ]
+  }
+}
