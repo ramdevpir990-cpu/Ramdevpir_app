@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -31,7 +32,12 @@ function connectMongo() {
 
 // Middleware
 app.use(express.json());
-app.use(express.static("public")); // ignored on Vercel — static assets are served from /public by Vercel's CDN
+app.use(express.static(path.join(__dirname, "public"))); // ignored on Vercel — static assets are served from /public by Vercel's CDN
+
+// Explicit handler so "/" works on Vercel too (express.static is ignored there)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Ensure DB is connected before any route runs
 app.use(async (req, res, next) => {
